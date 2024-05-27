@@ -2,8 +2,10 @@
 
 export default function(){
     return (
-        <main>
+        <div>
             <h1>Shopping List</h1>
-        </main>
-    )
+            <h1>Cynthia MeiNv</h1>
+            <a href ="https://github.com">https://github.com</a>
+        </div>
+    ) 
 }
