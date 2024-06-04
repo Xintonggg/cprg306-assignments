@@ -1,0 +1,173 @@
+DECLARE
+  -- Declaration section
+  v_first_nameemployees.first_name%TYPE NOT NULL := 'John';
+  v_middle_initial       CHAR(1) := 'D';
+  v_age                  NUMBER(3) := 30;
+  v_hire_date            employees.hire_date%TYPE := SYSDATE;
+  v_is_active            BOOLEAN := TRUE;
+  v_company_name         employees.company_name%TYPE := 'ABC Company';
+ 
+BEGIN
+  -- Executable section
+  v_first_name := 'Jane';
+ 
+  DBMS_OUTPUT.PUT_LINE('First Name: ' || v_first_name);
+  DBMS_OUTPUT.PUT_LINE('Middle Initial: ' || v_middle_initial);
+  DBMS_OUTPUT.PUT_LINE('Age: ' || v_age);
+  DBMS_OUTPUT.PUT_LINE('Hire Date: ' || v_hire_date);
+  DBMS_OUTPUT.PUT_LINE('Company Name: ' || v_company_name);
+END;
+
+
+-- Insert employee information into the employeestable
+DECLARE
+  v_employee_idNUMBER := 100;
+  v_first_nameVARCHAR2(20) := 'John';
+  v_company_nameVARCHAR2(50) := 'ABC Company';
+ 
+BEGIN
+  INSERT INTO employees
+   (employee_id, first_name, company_name)
+  VALUES
+   (v_employee_id, v_first_name, v_company_name);
+ 
+  COMMIT;
+END;
+/
+
+
+-- Insert employee information into the employees table -- using sequence
+DECLARE
+  v_first_nameVARCHAR2(20) NOT NULL := 'John';
+  v_age           NUMBER(3) := 30;
+  v_employee_idNUMBER(5);
+  v_company_nameVARCHAR2(50) := 'ABC Company';
+ 
+BEGIN
+  SELECT seq_employee_id.NEXTVAL
+    INTO v_employee_id
+    FROM dual;
+  
+  INSERT INTO employees
+   (employee_id, first_name, age, company_name)
+  VALUES
+   (v_employee_id, v_first_name, v_age, v_company_name);
+  
+  DBMS_OUTPUT.PUT_LINE('Data inserted successfully!');
+  COMMIT;
+END;
+/
+
+
+-- Retrieve employee information based on employee ID
+-- constant
+DECLARE
+  k_employee_idCONSTANT NUMBER(5) := 2;
+  v_first_nameemployees.first_name%TYPE;
+  v_age           NUMBER(3);
+  v_company_nameemployees.company_name%TYPE;
+ 
+BEGIN
+  SELECT first_name, age, company_name
+    INTO v_first_name, v_age, v_company_name
+    FROM employees
+   WHERE employee_id = k_employee_id;
+  
+  DBMS_OUTPUT.PUT_LINE('First Name: ' || v_first_name
+              || ', Age: ' || v_age || ', Company Name:
+             ' || v_company_name);
+END;
+/
+
+
+
+set serveroutput on;
+
+BEGIN
+DEMS_OUTPUT.PUT_LINE('Xin Tong');
+END;
+/
+
+
+set serveroutput on;
+DECLARE
+---scalar
+--v_fname varchar2(15):='Xin';
+v_fname students.frist_name%type:='Xin';
+v_lname students.last_name%type:='Tong';
+--v_lname varchar2(15):='Tong';
+--v_age   number(3);
+v_age   students.age%type;
+BEGIN
+DEMS_OUTPUT.PUT_LINE('Full name:'||v_fname ||''||v_lname );DEMS_OUTPUT.PUT_LINE('Full name:'||v_fname ||','||v_lname ||'Age:='||v_age);
+END;
+/
+
+drop table students;
+create table students(
+    frist_name varchar2(15),
+    last_name varchar2(15),
+    age number(3)
+);
+
+DECLARE
+--composite
+--step 1
+type st_record is record(
+v_fname varchar2(15),
+v_lname varchar2(15),
+v_age   number(3)
+);
+-- step 2
+re_student  st_record;--just reference
+BEGIN
+--assign values to fildes in my record
+re_student.v_fname :='Xin';
+re_student.v_lname :='Tong';
+re_student.v_age :=24;
+--get values from fildes
+DBMS_OUTPUT.PUT_LINE(re_student.v_fname);
+DBMS_OUTPUT.PUT_LINE(re_student.v_lname);
+DBMS_OUTPUT.PUT_LINE(re_student.v_age);
+END;
+/
+
+
+DECLARE
+---composite
+--step 1
+type st_record is record(
+v_fname varchar2(15),
+v_lname varchar2(15),
+v_age   number(3)
+);
+
+
+DECLARE
+--composite, %rowtype
+/*--step 1
+type st_record is record(
+v_fname students.first_name%type,
+v_lname  students.last_name%type,
+v_age    students.age%type
+);*/
+--step 2
+--declare composite var with the same structure of 1 row in a table 
+re_student students%rowtype;
+BEGIN
+--assign values to fileds in my record
+re_student.frist_name :='Xin';
+re_student.last_name :='Tong';
+re_student.age :=24;
+DBMS_OUTPUT.PUT_LINE(re_student.frist_name);
+DBMS_OUTPUT.PUT_LINE(re_student.last_name);
+DBMS_OUTPUT.PUT_LINE(re_student.age);
+END;
+/
+
+
+
+
+
+
+
