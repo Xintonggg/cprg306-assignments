@@ -2,26 +2,23 @@
 
 import { useState } from 'react';
 
-export default function NewItem() {
+export default function NewItem({ onAddItem }) {
   const [name, setName] = useState('');
-
   const [quantity, setQuantity] = useState(1);
-
   const [category, setCategory] = useState('produce');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const item = { name, quantity, category };
-    console.log(item);
+    const newItem = { name, quantity, category };
+    onAddItem(newItem);
     alert(`Item: ${name}\nQuantity: ${quantity}\nCategory: ${category}`);
     setName('');
     setQuantity(1);
     setCategory('produce');
   };
 
-  return (
-
-    <form onSubmit={handleSubmit} className="p-8 space-y-4 bg-yellow-700 rounded-lg shadow-lg w-80 mx-auto">
+  return ( 
+    <form onSubmit={handleSubmit} className="p-8 space-y-4 bg-yellow-700 rounded-lg shadow-lg w-80 mx-5 my-5">
       <div>
         <input
           type="text"
@@ -41,7 +38,8 @@ export default function NewItem() {
           min="1"
           max="100"
           required
-          className="w-1/3 p-2 text-yellow-700 placeholder-gray-400 bg-yellow-100 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+          className="w-1/3 p-2 text-yellow-700 placeholder-gray-400 bg-yellow-100 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
 
         <select
           value={category}
@@ -49,6 +47,7 @@ export default function NewItem() {
           required
           className="w-2/3 p-2 text-yellow-700 bg-yellow-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
+          <option value="" disabled>Category</option>
           <option value="produce">Produce</option>
           <option value="dairy">Dairy</option>
           <option value="bakery">Bakery</option>
