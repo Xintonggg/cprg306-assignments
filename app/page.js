@@ -21,10 +21,10 @@ export default function Home(){
         <Link href={"./week-6/"}>Week 6 Assignment</Link>
       </li>
       <li className="text-yellow-300 text-xl font-bold">
-        <Link href={"./week-6.1/"}>Week 6/1 Assignment</Link>
+        <Link href={"./week-7/"}>Week 7 Assignment</Link>
       </li>
       <li className="text-yellow-300 text-xl font-bold">
-        <Link href={"./week-7.1/"}>Week 7 Assignment</Link>
+        <Link href={"./week-8/"}>Week 8 Assignment</Link>
       </li>
       
     </main>
