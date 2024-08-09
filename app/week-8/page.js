@@ -37,7 +37,7 @@ export default function SignInPage() {
 
           <div className="w-full my-5 flex justify-around "> 
             <button className="bg-green-300 text-white px-4 py-2 rounded w-auto h-10 mb-2 mx-5"> 
-              <Link href={"./homepage/"}>HomePage </Link>
+              <Link href={"./shopping-list/"}>HomePage </Link>
             </button>
             <button onClick={handleSignOut} className="bg-white text-black px-4 py-2 rounded w-auto h-10 mx-5 hover:bg-green-300">Sign Out</button>
           </div>
