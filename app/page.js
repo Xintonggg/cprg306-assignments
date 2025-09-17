@@ -1,7 +1,15 @@
+'use client'
 import Link from "next/link";
-
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home(){
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("./week-7/");
+  }, [router]);
+
   return(
     <main className="bg-yellow-100 ">
       <h1 className="text-pink-300 text-3xl text-center font-bold">CPRG306: Web Development 2 - Assignments</h1>
@@ -23,12 +31,7 @@ export default function Home(){
       <li className="text-yellow-300 text-xl font-bold">
         <Link href={"./week-7/"}>Week 7 Assignment</Link>
       </li>
-      <li className="text-yellow-300 text-xl font-bold">
-        <Link href={"./week-8/"}>Week 8 Assignment</Link>
-      </li>
-      <li className="text-yellow-300 text-xl font-bold">
-        <Link href={"./week-10/"}>Week 10 Assignment</Link>
-      </li>
+
       
     </main>
   )

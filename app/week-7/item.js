@@ -1,15 +1,15 @@
-import ItemList from "./item-list"
-
-
-export default function Item({name, quantity, category, onSelect, isSelected}){
-
-    
-    return(
-        <li className={`p-2 m-4 bg-pink-300 max-w-sm cursor-pointer ${isSelected ? 'bg-pink-300' : 'hover:bg-yellow-200'}`}
-        onClick={() => onSelect(name)}>
-            <h3 className="text-2xl font-bold">{name}</h3>
-            <p className="text-lg">Buy {quantity} in {category}</p>
-        
-        </li>
-    );
+export default function Item({ name, quantity, category, onSelect, isSelected }) {
+  return (
+    <li
+      onClick={() => onSelect(name)}
+      className={`max-w-lg mx-auto p-4 rounded-lg cursor-pointer shadow-md transition 
+        ${isSelected ? 'bg-yellow-300 scale-105' : 'bg-pink-300 hover:bg-yellow-200'}
+      `}
+    >
+      <h3 className="text-xl font-bold">{name}</h3>
+      <p className="text-sm text-gray-700">
+        Buy {quantity} in {category}
+      </p>
+    </li>
+  );
 }

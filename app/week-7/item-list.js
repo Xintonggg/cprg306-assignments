@@ -2,45 +2,45 @@
 
 import React, { useState } from 'react';
 import Item from './item';
-import itemsData from './items.json';
 
-export default function ItemList() {
+export default function ItemList({ items, onItemSelect }) {
   const [sortBy, setSortBy] = useState('name');
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleSelect = (itemName) => {
     setSelectedItem(itemName);
+    if (onItemSelect) {
+      onItemSelect(itemName); // ✅ 通知 Page.jsx 更新 selectedItemName
+    }
   };
 
-  // Group items by category
-  const groupedItems = itemsData.reduce((acc, item) => {
+  // 这里用 items 而不是 itemsData，保证和 Page.jsx 的状态同步
+  const groupedItems = items.reduce((acc, item) => {
     const category = item.category;
-    if (!acc[category]) {
-      acc[category] = [];
-    }
+    if (!acc[category]) acc[category] = [];
     acc[category].push(item);
     return acc;
   }, {});
 
-  // Sort grouped items by name within each category
-  const sortedGroupedItems = Object.keys(groupedItems).sort().reduce((acc, category) => {
-    acc[category] = groupedItems[category].sort((a, b) => a.name.localeCompare(b.name));
-    return acc;
-  }, {});
+  const sortedGroupedItems = Object.keys(groupedItems)
+    .sort()
+    .reduce((acc, category) => {
+      acc[category] = groupedItems[category].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      return acc;
+    }, {});
 
-  // Sort items based on the sortBy state
-  const sortedItems = [...itemsData].sort((a, b) => {
-    if (sortBy === 'name') {
-      return a.name.localeCompare(b.name);
-    } else if (sortBy === 'category') {
-      return a.category.localeCompare(b.category);
-    }
+  const sortedItems = [...items].sort((a, b) => {
+    if (sortBy === 'name') return a.name.localeCompare(b.name);
+    if (sortBy === 'category') return a.category.localeCompare(b.category);
     return 0;
   });
 
   return (
-    <div className="max-w-full">
-      <div className="flex space-x-4 mb-4">
+    <div className="max-w-2xl mx-auto">
+      {/* 排序按钮居中 */}
+      <div className="flex justify-center space-x-4 mb-4">
         <button
           className={`px-4 py-2 rounded ${sortBy === 'name' ? 'bg-yellow-700 text-yellow-300' : 'bg-gray-300'}`}
           onClick={() => setSortBy('name')}
@@ -60,11 +60,14 @@ export default function ItemList() {
           Group by Category
         </button>
       </div>
+
       <ul className="space-y-4">
         {sortBy === 'group'
-          ? Object.keys(sortedGroupedItems).map(category => (
+          ? Object.keys(sortedGroupedItems).map((category) => (
               <li key={category} className="capitalize">
-                <h2 className="text-2xl font-bold mt-4 mx-5 text-yellow-300">{category}</h2>
+                <h2 className="text-2xl font-bold mt-4 mx-5 text-yellow-300">
+                  {category}
+                </h2>
                 <ul>
                   {sortedGroupedItems[category].map((item, index) => (
                     <Item
